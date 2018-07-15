@@ -1,8 +1,8 @@
 FROM alpine as buildstage
 
-ENV BUMP 2018071501
+ENV BUMP 2018071502
 
-RUN apk --no-cache add g++ boost-dev git make boost
+RUN apk add g++ boost-dev git make boost
 RUN git clone --depth 1 https://github.com/VROOM-Project/vroom.git
 RUN mkdir -p /vroom/bin
 RUN cd /vroom/src && make
@@ -13,7 +13,6 @@ FROM alpine as runstage
 COPY --from=buildstage /vroom/bin/* /usr/local/bin/
 
 RUN apk --no-cache add boost-system nodejs-npm nodejs git && \
-	apk --no-cache add gosu@testing && \
 	git clone --depth 1 https://github.com/VROOM-Project/vroom-express.git && \
 	adduser -D vroom && \
 	mkfifo -m 600 /vroom-express/logpipe && \
