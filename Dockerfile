@@ -1,6 +1,6 @@
 FROM alpine as buildstage
 
-ENV BUMP 2018071502
+ENV BUMP 2018073001
 
 RUN apk add g++ boost-dev git make boost
 RUN git clone --depth 1 https://github.com/VROOM-Project/vroom.git
