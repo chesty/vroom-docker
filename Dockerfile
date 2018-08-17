@@ -12,7 +12,7 @@ FROM alpine as runstage
 
 COPY --from=buildstage /vroom/bin/* /usr/local/bin/
 
-RUN apk --no-cache add boost-system nodejs-npm nodejs git && \
+RUN apk --no-cache add boost-system nodejs-npm nodejs git su-exec && \
     git clone --depth 1 https://github.com/VROOM-Project/vroom-express.git && \
     adduser -D vroom && \
     mkfifo -m 600 /vroom-express/logpipe && \
