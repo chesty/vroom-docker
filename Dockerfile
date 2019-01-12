@@ -1,6 +1,6 @@
 FROM debian:buster-slim as buildstage
 
-ENV BUMP 2018121301
+ENV BUMP 2019011201
 
 RUN apt update && \
     apt install -y git \
