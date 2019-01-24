@@ -1,6 +1,6 @@
 FROM debian:buster-slim as buildstage
 
-ENV BUMP 2019011701
+ENV BUMP 2019012401
 
 RUN apt update && \
     apt install -y git \
@@ -62,8 +62,8 @@ RUN mkdir -p /src && \
         npm \
         postgresql-client && \
     git clone --depth 1 https://github.com/VROOM-Project/vroom-express.git && \
-    useradd -m -s /bin/bash osrm && \
     useradd -m -s /bin/bash osm && \
+    useradd -m -s /bin/bash osrm && \
     useradd -m -s /bin/bash vroom && \
     mkfifo -m 600 /vroom-express/logpipe && \
     chown vroom /vroom-express/logpipe && \
@@ -76,7 +76,6 @@ RUN mkdir -p /src && \
     apt autoremove --purge -y && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
-
 
 COPY vroom-express.sh /usr/local/bin/vroom-express.sh
 CMD ["vroom-express.sh"]
