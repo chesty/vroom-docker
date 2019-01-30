@@ -1,11 +1,12 @@
 FROM debian:buster-slim as buildstage
 
 ENV BUMP 2019012401
+ENV VROOM_VERSION v1.3.0
 
 RUN apt update && \
     apt install -y git \
         pkg-config && \
-    git clone --depth 1 https://github.com/Project-OSRM/osrm-backend.git
+    git clone --depth 1 --single-branch https://github.com/Project-OSRM/osrm-backend.git
 
 RUN cd osrm-backend && \
     apt-get update && \
@@ -28,7 +29,7 @@ RUN cd osrm-backend && \
     cp -r * /opt && \
     \
     ldconfig && \
-    git clone --depth 1 https://github.com/VROOM-Project/vroom.git && \
+    git clone --depth 1 --single-branch --branch $VROOM_VERSION https://github.com/VROOM-Project/vroom.git && \
     mkdir vroom/bin && \
     cd vroom/src && \
     make && \
