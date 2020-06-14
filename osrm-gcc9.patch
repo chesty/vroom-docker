@@ -1,0 +1,39 @@
+diff --git a/include/updater/csv_file_parser.hpp b/include/updater/csv_file_parser.hpp
+index f3221672b..e0c7fabc0 100644
+--- a/include/updater/csv_file_parser.hpp
++++ b/include/updater/csv_file_parser.hpp
+@@ -122,7 +122,7 @@ template <typename Key, typename Value> struct CSVFilesParser
+
+             util::Log() << "Loaded " << filename << " with " << result.size() << "values";
+
+-            return std::move(result);
++            return result;
+         }
+         catch (const boost::exception &e)
+         {
+diff --git a/src/server/api/parameters_parser.cpp b/src/server/api/parameters_parser.cpp
+index a2c6767bd..a68b2abcd 100644
+--- a/src/server/api/parameters_parser.cpp
++++ b/src/server/api/parameters_parser.cpp
+@@ -47,7 +47,7 @@ boost::optional<ParameterT> parseParameters(std::string::iterator &iter,
+
+         // return move(a.b) is needed to move b out of a and then return the rvalue by implicit move
+         if (ok && iter == end)
+-            return std::move(parameters);
++            return parameters;
+     }
+     catch (const qi::expectation_failure<It> &failure)
+     {
+diff --git a/src/storage/io_config.cpp b/src/storage/io_config.cpp
+index 82d8a914e..1e8bdf658 100644
+--- a/src/storage/io_config.cpp
++++ b/src/storage/io_config.cpp
+@@ -15,7 +15,7 @@ bool IOConfig::IsValid() const
+     bool success = true;
+     for (auto &fileName : required_input_files)
+     {
+-        if (!boost::filesystem::is_regular_file({base_path.string() + fileName.string()}))
++        if (!boost::filesystem::is_regular_file(boost::filesystem::path(base_path.string() + fileName.string())))
+         {
+             util::Log(logWARNING) << "Missing/Broken File: " << base_path.string()
+                                   << fileName.string();
