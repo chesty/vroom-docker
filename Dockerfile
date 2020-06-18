@@ -1,4 +1,4 @@
-FROM ubuntu:focal as buildstage
+FROM ubuntu:eoan as buildstage
 
 ENV BUMP 20200606
 
@@ -49,7 +49,7 @@ RUN git clone --depth 1 --single-branch --branch $VROOM_VERSION https://github.c
     cp ../bin/* /usr/local/bin && \
     ldconfig
 
-FROM ubuntu:focal as runstage
+FROM ubuntu:eoan as runstage
 
 COPY --from=buildstage /usr/local /usr/local
 COPY --from=buildstage /opt /opt
@@ -63,13 +63,13 @@ RUN mkdir -p /src && \
         expat \
         git \
         gosu \
-        libboost-chrono1.71.0 \
-        libboost-date-time1.71.0 \
-        libboost-filesystem1.71.0 \
-        libboost-iostreams1.71.0 \
-        libboost-program-options1.71.0 \
-        libboost-regex1.71.0 \
-        libboost-thread1.71.0 \
+        libboost-chrono1.67.0 \
+        libboost-date-time1.67.0 \
+        libboost-filesystem1.67.0 \
+        libboost-iostreams1.67.0 \
+        libboost-program-options1.67.0 \
+        libboost-regex1.67.0 \
+        libboost-thread1.67.0 \
         liblua5.2-0 \
         libtbb2 \
         netcat \
