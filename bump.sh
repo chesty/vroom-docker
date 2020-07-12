@@ -15,7 +15,7 @@ bump() {
   fi
 
   git checkout "$BRANCH"
-  git pull "$BRANCH"
+  git pull 
 
   DATE=$(date +%Y%m%d.1)
 
