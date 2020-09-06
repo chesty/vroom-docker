@@ -1,6 +1,6 @@
 FROM ubuntu:focal as buildstage
 
-ENV BUMP 20200830.1
+ENV BUMP 20200906.1
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get -y --no-install-recommends install \
