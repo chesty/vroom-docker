@@ -61,6 +61,7 @@ RUN mkdir -p /src && \
         ca-certificates \
         curl \
         expat \
+        expect \
         git \
         gosu \
         libboost-chrono1.71.0 \
@@ -79,9 +80,9 @@ RUN mkdir -p /src && \
     useradd -m -s /bin/bash osrm && \
     useradd -m -s /bin/bash vroom && \
     mkfifo -m 600 /vroom-express/logpipe && \
-    chown vroom /vroom-express/logpipe && \
-    ln -sf /vroom-express/logpipe /vroom-express/access.log && \
-    ln -sf /vroom-express/logpipe /vroom-express/error.log && \
+    touch /vroom-express/access.log && \
+    touch /vroom-express/error.log && \
+    chown vroom /vroom-express/logpipe /vroom-express/access.log  /vroom-express/error.log && \
     sed -ri "s/(osrm_address:).*,/\1 \"osrm-backend\",/" /vroom-express/src/index.js && \
     apt purge -y git && \
     apt autoremove --purge -y && \

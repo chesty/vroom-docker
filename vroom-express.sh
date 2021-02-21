@@ -2,8 +2,9 @@
 
 cd /vroom-express
 # https://github.com/docker/docker/issues/6880
-cat <> /vroom-express/logpipe 1>&2 &
-
+unbuffer cat /vroom-express/logpipe &
+unbuffer cat /vroom-express/access.log &
+unbuffer cat /vroom-express/error.log &
 
 if [ $(id -u) -eq 0 ]; then
     exec gosu vroom npm start
