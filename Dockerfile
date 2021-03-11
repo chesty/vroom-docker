@@ -22,12 +22,11 @@ RUN apt-get update && \
         lua5.2 \
         pkg-config
 
-ENV OSRM_BACKEND_VERSION v5.22.0
-ENV OSRM_BACKEND_VERSION v5.22.0-customsnapping.3
+ENV OSRM_BACKEND_VERSION v5.24.0
 RUN git clone --branch $OSRM_BACKEND_VERSION --single-branch --depth 1 https://github.com/Project-OSRM/osrm-backend.git
-COPY ./osrm-gcc9.patch /osrm-backend/
+#COPY ./osrm-gcc9.patch /osrm-backend/
 RUN cd /osrm-backend && \
-    patch -p1 < osrm-gcc9.patch && \
+#    patch -p1 < osrm-gcc9.patch && \
     git show --format="%H" | head -n1 > /opt/OSRM_GITSHA && \
     echo "Building OSRM gitsha $(cat /opt/OSRM_GITSHA)" && \
     mkdir -p build && \
